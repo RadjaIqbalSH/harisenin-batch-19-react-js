@@ -204,3 +204,10 @@
 	margin: 24px;
 	color: black;
 }
+
+.title--red {
+	color: red;
+}
+.title--green {
+	color: green;
+}

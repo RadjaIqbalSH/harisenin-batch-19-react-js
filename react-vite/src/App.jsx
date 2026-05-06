@@ -3,6 +3,7 @@ import Card from "./components/Card";
 
 import "./App.css";
 import { useState } from "react";
+import { Link } from "react-router";
 
 const dataArray = ["kucing", "kodok", "Jerapa", "Gajah"];
 
@@ -14,8 +15,16 @@ function App() {
 
 	return (
 		<>
-			<Navbar />
-			<button
+			<p>Navigation traditional</p>
+			<a href="/about">About</a>
+			<a href="/contact">Contact</a>
+			<a href="/price">Price</a>
+
+			<p>Navigation react router</p>
+			<Link to="/about">About</Link>
+			<Link to="/contact">Contact</Link>
+			<Link to="/price">Price</Link>
+			{/* <button
 				style={{ width: "fit-content", margin: "12px auto" }}
 				onClick={() => setState1((current) => !current)}
 			>
@@ -38,13 +47,13 @@ function App() {
 				onClick={() => setState4((current) => !current)}
 			>
 				Hide Card 4
-			</button>
-			<div>
-				{state1 && <Card />}
-				{/* {state2 && <Card />}
+			</button> */}
+			{/* <div> */}
+			{/* {state1 && <Card />} */}
+			{/* {state2 && <Card />}
 				{state3 && <Card />}
 				{state4 && <Card />} */}
-			</div>
+			{/* </div> */}
 			{/* <div>
 				{dataArray.map((data) => (
 					<Card name={data} />
