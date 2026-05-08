@@ -3,11 +3,13 @@ import Card from "./components/Card";
 
 import "./App.css";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useOutletContext } from "react-router";
 
 const dataArray = ["kucing", "kodok", "Jerapa", "Gajah"];
 
 function App() {
+	const { theme, changeTheme } = useOutletContext();
+
 	const [state1, setState1] = useState(true);
 	const [state2, setState2] = useState(true);
 	const [state3, setState3] = useState(true);
@@ -54,11 +56,11 @@ function App() {
 				{state3 && <Card />}
 				{state4 && <Card />} */}
 			{/* </div> */}
-			{/* <div>
+			<div>
 				{dataArray.map((data) => (
-					<Card name={data} />
+					<Card name={data} theme={theme} changeTheme={changeTheme} />
 				))}
-			</div> */}
+			</div>
 		</>
 	);
 }

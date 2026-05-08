@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import Button from "./Button";
+// import { ThemeContext } from "./Navbar";
+import { useContext } from "react";
+import { useTheme } from "../store/theme";
 
 function Card(props) {
 	const [state, setState] = useState(1);
@@ -31,19 +35,17 @@ function Card(props) {
 		//
 	});
 
+	// const { changeTheme } = useContext(ThemeContext);
+
+	const { changeTheme } = useTheme();
+
 	return (
 		<div className="card">
 			<p>Name Animal: {props.name}</p>
 			<p>Count : {state}</p>
-			<button
-				style={{ marginTop: "12px", marginRight: "8px" }}
-				onClick={handlingMin1}
-			>
-				MIN 1
-			</button>
-			<button style={{ marginTop: "12px" }} onClick={handlingAdd1}>
-				ADD 1
-			</button>
+			<Button handleClick={handlingMin1}>MIN 1</Button>
+			<Button handleClick={handlingAdd1}>ADD 1</Button>
+			<Button handleClick={changeTheme}>Change Theme</Button>
 		</div>
 	);
 }
