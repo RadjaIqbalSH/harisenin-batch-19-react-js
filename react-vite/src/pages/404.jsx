@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { redirect } from "react-router";
 
 const Page404 = () => {
-	useEffect(() => {
-		redirect("/");
-	});
+	// useEffect(() => {
+	// 	redirect("/");
+	// });
 
 	return (
 		<>
