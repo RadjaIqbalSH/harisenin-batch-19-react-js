@@ -10,7 +10,7 @@ const dataArray = ["kucing", "kodok", "Jerapa", "Gajah"];
 function App() {
 	const { theme, changeTheme } = useOutletContext();
 
-	const [state1, setState1] = useState(true);
+	const [state1, setState1] = useState<boolean>(true);
 	const [state2, setState2] = useState(true);
 	const [state3, setState3] = useState(true);
 	const [state4, setState4] = useState(true);
@@ -58,7 +58,18 @@ function App() {
 			{/* </div> */}
 			<div>
 				{dataArray.map((data) => (
-					<Card name={data} theme={theme} changeTheme={changeTheme} />
+					<Card
+						name={data}
+						age={10}
+						isMan={true}
+						address={{
+							no: 10,
+							kecamatan: "asd",
+						}}
+						film=""
+					>
+						<p>Hallo</p>
+					</Card>
 				))}
 			</div>
 		</>

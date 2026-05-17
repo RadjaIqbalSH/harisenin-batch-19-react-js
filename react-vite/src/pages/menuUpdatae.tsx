@@ -1,8 +1,25 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, type SubmitEventHandler, type Reducer, useState, type ChangeEvent, type ChangeEventHandler, type InputHTMLAttributes } from "react";
 import { NavLink, useNavigate, useParams } from "react-router";
 import axios from "axios";
 
-const reducer = (state, action) => {
+
+interface IInitialData  {
+	name: string,
+	price: string,
+	category: string,
+	description: string,
+}
+
+type TTypeAction = "change_name" | "change_price" | "change_category" | "change_description" | "change_all"
+
+interface IAction {
+	type: TTypeAction;
+	value: string;
+	allValue?: IInitialData;
+}
+
+
+const reducer = (state:IInitialData, action: IAction) => {
 	switch (action.type) {
 		case "change_name":
 			return {
@@ -33,7 +50,7 @@ const reducer = (state, action) => {
 			break;
 		case "change_all":
 			return {
-				...action.value,
+				...action.allValue as IInitialData,
 			};
 			break;
 
@@ -45,7 +62,8 @@ const reducer = (state, action) => {
 	}
 };
 
-const initData = {
+
+const initData: IInitialData = {
 	name: "",
 	price: "",
 	category: "",
@@ -58,7 +76,8 @@ const MenuUpdate = () => {
 	const navigate = useNavigate();
 	const params = useParams();
 
-	function getDetailMenu(id) {
+
+	function getDetailMenu(id: string) {
 		axios
 			.get(
 				`https://6968be9069178471522b6774.mockapi.io/api/v1/menu/${id}`
@@ -66,30 +85,41 @@ const MenuUpdate = () => {
 			.then((response) => {
 				setData({
 					type: "change_all",
-					value: response.data,
+					value: "",					
+					allValue: response.data,
 				});
 			});
 	}
 
 	useEffect(() => {
-		getDetailMenu(params.id);
+		if (params.id) {
+			getDetailMenu(params.id);
+		}
 	}, []);
 
-	function updateData(payload) {
+	function updateData(payload: IInitialData) {
 		axios
 			.put(
 				`https://6968be9069178471522b6774.mockapi.io/api/v1/menu/${params.id}`,
 				payload
 			)
-			.then((response) => {
+			.then(() => {
 				navigate("/menu");
 			});
 	}
 
-	const handleSubmit = (event) => {
+	const handleSubmit: SubmitEventHandler<HTMLFormElement> = (event) => {
 		event.preventDefault();
 		updateData(data);
 	};
+
+	function handleChangeInput(event: ChangeEvent<HTMLInputElement, HTMLInputElement>
+, type: TTypeAction) {
+		setData({
+			type: type,
+			value: event.target.value,
+		});
+	}
 
 	return (
 		<div>
@@ -114,12 +144,7 @@ const MenuUpdate = () => {
 					name=""
 					type="text"
 					value={data.name}
-					onChange={(event) => {
-						setData({
-							type: "change_name",
-							value: event.target.value,
-						});
-					}}
+					onChange={(event) =>handleChangeInput(event, "change_name")}
 				/>
 				<label htmlFor="" style={{ marginRight: "10px" }}>
 					Price
@@ -128,12 +153,7 @@ const MenuUpdate = () => {
 					name=""
 					type="text"
 					value={data.price}
-					onChange={(event) => {
-						setData({
-							type: "change_price",
-							value: event.target.value,
-						});
-					}}
+					onChange={(event) =>handleChangeInput(event, 'change_price')}
 				/>
 				<label htmlFor="" style={{ marginRight: "10px" }}>
 					Category
@@ -142,12 +162,7 @@ const MenuUpdate = () => {
 					name=""
 					type="text"
 					value={data.category}
-					onChange={(event) => {
-						setData({
-							type: "change_category",
-							value: event.target.value,
-						});
-					}}
+					onChange={(event) =>handleChangeInput(event, "change_category")}
 				/>
 				<label htmlFor="" style={{ marginRight: "10px" }}>
 					Description
@@ -156,12 +171,7 @@ const MenuUpdate = () => {
 					name=""
 					type="text"
 					value={data.description}
-					onChange={(event) => {
-						setData({
-							type: "change_description",
-							value: event.target.value,
-						});
-					}}
+					onChange={(event) =>handleChangeInput(event, "change_description")}
 				/>
 				<button style={{ marginTop: "20px" }} type="submit">
 					Update
