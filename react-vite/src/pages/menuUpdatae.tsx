@@ -1,22 +1,7 @@
-import React, { useReducer, useEffect, type SubmitEventHandler, type Reducer, useState, type ChangeEvent, type ChangeEventHandler, type InputHTMLAttributes } from "react";
+import { useReducer, useEffect, type SubmitEventHandler, type Reducer, useState, type ChangeEvent, type ChangeEventHandler, type InputHTMLAttributes } from "react";
 import { NavLink, useNavigate, useParams } from "react-router";
 import axios from "axios";
-
-
-interface IInitialData  {
-	name: string,
-	price: string,
-	category: string,
-	description: string,
-}
-
-type TTypeAction = "change_name" | "change_price" | "change_category" | "change_description" | "change_all"
-
-interface IAction {
-	type: TTypeAction;
-	value: string;
-	allValue?: IInitialData;
-}
+import type { IAction, IInitialData, TTypeAction } from "../typings/menu";
 
 
 const reducer = (state:IInitialData, action: IAction) => {

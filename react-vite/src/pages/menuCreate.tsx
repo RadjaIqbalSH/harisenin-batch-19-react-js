@@ -1,8 +1,9 @@
-import React, { useReducer } from "react";
+import { useReducer, type SubmitEventHandler } from "react";
 import { NavLink, useNavigate } from "react-router";
 import axios from "axios";
+import type { IAction, IInitialData, TTypeAction } from "../typings/menu";
 
-const reducer = (state, action) => {
+const reducer = (state: IInitialData, action: IAction) => {
 	switch (action.type) {
 		case "change_name":
 			return {
@@ -40,7 +41,7 @@ const reducer = (state, action) => {
 	}
 };
 
-const initData = {
+const initData: IInitialData = {
 	name: "",
 	price: "",
 	category: "",
@@ -52,18 +53,18 @@ const MenuCreate = () => {
 
 	const navigate = useNavigate();
 
-	function sendData(payload) {
+	function sendData(payload: IInitialData) {
 		axios
 			.post(
 				"https://6968be9069178471522b6774.mockapi.io/api/v1/menu",
 				payload
 			)
-			.then((response) => {
+			.then(() => {
 				navigate("/menu");
 			});
 	}
 
-	const handleSubmit = (event) => {
+	const handleSubmit: SubmitEventHandler<HTMLFormElement> = (event) => {
 		event.preventDefault();
 		sendData(data);
 	};

@@ -1,7 +1,16 @@
-import React from "react";
+import type { FC } from "react";
 import { NavLink } from "react-router";
 
-const CardMenu = (props) => {
+interface ICardMenuProps {
+	name: string;
+	price: string;
+	category: string;
+	detailUrl: string;
+	updateUrl: string;
+	onClickDelete: () => void;
+}
+
+const CardMenu: FC<ICardMenuProps> = (props) => {
 	return (
 		<div className="card-menu">
 			<p>{props.name}</p>

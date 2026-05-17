@@ -75,8 +75,6 @@ function Card(props: ICardProps) {
 		//
 	});
 
-	// const { changeTheme } = useContext(ThemeContext);
-
 	const { changeTheme } = useTheme();
 
 	return (

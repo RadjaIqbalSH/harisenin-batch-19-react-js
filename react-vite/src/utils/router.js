@@ -39,7 +39,6 @@ const router = createBrowserRouter([
 			},
 		],
 	},
-	// mini menu
 	{
 		path: "/menu",
 		children: [

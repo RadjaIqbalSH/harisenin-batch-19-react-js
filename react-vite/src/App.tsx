@@ -8,7 +8,7 @@ import { Link, useOutletContext } from "react-router";
 const dataArray = ["kucing", "kodok", "Jerapa", "Gajah"];
 
 function App() {
-	const { theme, changeTheme } = useOutletContext();
+	// const { theme, changeTheme } = useOutletContext();
 
 	const [state1, setState1] = useState<boolean>(true);
 	const [state2, setState2] = useState(true);

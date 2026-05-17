@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import CardMenu from "../components/CardMenu";
 import { NavLink } from "react-router";
+import type { IMenuData } from "../typings/menu";
 
 /**
  *
@@ -15,13 +16,15 @@ import { NavLink } from "react-router";
  */
 
 const Menu = () => {
-	const [menu, setMenu] = useState([]);
-	const [loading, setLoading] = useState(false);
+	const [menu, setMenu] = useState<IMenuData[]>([]);
+	const [loading, setLoading] = useState<boolean>(false);
 
-	function getListMenu() {
+	function getListMenu(): void {
 		setLoading(true);
 		axios
-			.get("https://6968be9069178471522b6774.mockapi.io/api/v1/menu")
+			.get<IMenuData[]>(
+				"https://6968be9069178471522b6774.mockapi.io/api/v1/menu"
+			)
 			.then((response) => {
 				setMenu(response.data);
 			})
@@ -34,7 +37,7 @@ const Menu = () => {
 		getListMenu();
 	}, []);
 
-	function deleteData(id) {
+	function deleteData(id: string): void {
 		setLoading(true);
 		axios
 			.delete(
@@ -50,7 +53,7 @@ const Menu = () => {
 
 	return (
 		<>
-			<h1>Mini Menu</h1>
+			<h1>Mini Menu Edit</h1>
 			<NavLink to="/menu/create">Create</NavLink>
 			{loading ? (
 				<p>Loading...</p>
